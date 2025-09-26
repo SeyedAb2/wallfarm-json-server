@@ -1,253 +1,195 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Mock Contact API",
-    "version": "1.0.0"
+    "title": "AgriMarket Mock API",
+    "version": "1.0.0",
+    "description": "Swagger API documentation for Users and Products (json-server mock)."
   },
   "basePath": "/api",
   "schemes": ["https"],
   "tags": [
-    {
-      "name": "Contacts"
-    },
-    {
-      "name": "Groups"
-    }
+    { "name": "Users" },
+    { "name": "Products" }
   ],
   "paths": {
-    "/contacts": {
+    "/users": {
       "get": {
-        "tags": ["Contacts"],
+        "tags": ["Users"],
+        "summary": "Get all users",
         "responses": {
-          "200": { "description": "OK" }
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/User" }
+            }
+          }
         }
       },
       "post": {
-        "tags": ["Contacts"],
+        "tags": ["Users"],
+        "summary": "Create a new user",
         "parameters": [
           {
             "in": "body",
-            "name": "contact",
+            "name": "user",
             "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "fullname": { "type": "string" },
-                "email": { "type": "string" },
-                "photo": { "type": "string" },
-                "job": { "type": "string" },
-                "mobile": { "type": "string" },
-                "group": { "type": "string" }
-              }
-            }
+            "schema": { "$ref": "#/definitions/User" }
           }
         ],
         "responses": {
-          "201": { "description": "Created" }
+          "201": { "description": "User created" }
         }
       }
     },
-    "/contacts/{id}": {
+    "/users/{id}": {
       "get": {
-        "tags": ["Contacts"],
+        "tags": ["Users"],
+        "summary": "Get user by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" }
         ],
         "responses": {
-          "200": { "description": "Contact found" },
-          "404": { "description": "Contact not found" }
-        }
-      },
-      "put": {
-        "tags": ["Contacts"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+          "200": {
+            "description": "User found",
+            "schema": { "$ref": "#/definitions/User" }
           },
-          {
-            "in": "body",
-            "name": "contact",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "fullname": { "type": "string" },
-                "email": { "type": "string" },
-                "photo": { "type": "string" },
-                "job": { "type": "string" },
-                "mobile": { "type": "string" },
-                "group": { "type": "string" }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": { "description": "Updated successfully" }
+          "404": { "description": "User not found" }
         }
       },
       "patch": {
-        "tags": ["Contacts"],
+        "tags": ["Users"],
+        "summary": "Update user partially",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "contact",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "fullname": { "type": "string" },
-                "email": { "type": "string" },
-                "photo": { "type": "string" },
-                "job": { "type": "string" },
-                "mobile": { "type": "string" },
-                "group": { "type": "string" }
-              }
-            }
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" },
+          { "in": "body", "name": "user", "required": true, "schema": { "$ref": "#/definitions/User" } }
         ],
         "responses": {
-          "200": { "description": "Patched successfully" }
+          "200": { "description": "User updated" }
         }
       },
       "delete": {
-        "tags": ["Contacts"],
+        "tags": ["Users"],
+        "summary": "Delete user by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" }
         ],
         "responses": {
-          "200": { "description": "Deleted successfully" },
-          "404": { "description": "Contact not found" }
+          "200": { "description": "User deleted" },
+          "404": { "description": "User not found" }
         }
       }
     },
-    "/groups": {
+
+    "/products": {
       "get": {
-        "tags": ["Groups"],
+        "tags": ["Products"],
+        "summary": "Get all products",
         "responses": {
-          "200": { "description": "OK" }
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Product" }
+            }
+          }
         }
       },
       "post": {
-        "tags": ["Groups"],
+        "tags": ["Products"],
+        "summary": "Create a new product",
         "parameters": [
           {
             "in": "body",
-            "name": "group",
+            "name": "product",
             "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": { "type": "string" },
-                "name": { "type": "string" }
-              },
-              "required": ["id", "name"]
-            }
+            "schema": { "$ref": "#/definitions/Product" }
           }
         ],
         "responses": {
-          "201": { "description": "Group created" }
+          "201": { "description": "Product created" }
         }
       }
     },
-    "/groups/{id}": {
+    "/products/{id}": {
       "get": {
-        "tags": ["Groups"],
+        "tags": ["Products"],
+        "summary": "Get product by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" }
         ],
         "responses": {
-          "200": { "description": "Group found" },
-          "404": { "description": "Group not found" }
-        }
-      },
-      "put": {
-        "tags": ["Groups"],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
+          "200": {
+            "description": "Product found",
+            "schema": { "$ref": "#/definitions/Product" }
           },
-          {
-            "in": "body",
-            "name": "group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id": { "type": "string" },
-                "name": { "type": "string" }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": { "description": "Group updated" }
+          "404": { "description": "Product not found" }
         }
       },
       "patch": {
-        "tags": ["Groups"],
+        "tags": ["Products"],
+        "summary": "Update product partially",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "group",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": { "type": "string" }
-              }
-            }
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" },
+          { "in": "body", "name": "product", "required": true, "schema": { "$ref": "#/definitions/Product" } }
         ],
         "responses": {
-          "200": { "description": "Group partially updated" }
+          "200": { "description": "Product updated" }
         }
       },
       "delete": {
-        "tags": ["Groups"],
+        "tags": ["Products"],
+        "summary": "Delete product by ID",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
+          { "name": "id", "in": "path", "required": true, "type": "integer" }
         ],
         "responses": {
-          "200": { "description": "Group deleted" },
-          "404": { "description": "Group not found" }
+          "200": { "description": "Product deleted" },
+          "404": { "description": "Product not found" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "password": { "type": "string" },
+        "confirmPassword": { "type": "string" },
+        "age": { "type": "integer" },
+        "type": { "type": "string", "enum": ["farmer", "seller", "service"] },
+        "logo": { "type": "string" },
+        "address": { "type": "string" },
+        "description": { "type": "string" },
+        "social": {
+          "type": "object",
+          "properties": {
+            "telegram": { "type": "string" },
+            "instagram": { "type": "string" },
+            "twitter": { "type": "string" }
+          }
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "title": { "type": "string" },
+        "price": { "type": "string" },
+        "grade": { "type": "integer" },
+        "info": { "type": "string" },
+        "type": { "type": "string", "enum": ["tools", "grand", "produce", "supple"] },
+        "image": { "type": "string" },
+        "address": { "type": "string" },
+        "created_at": { "type": "string", "format": "date-time" },
+        "user": { "$ref": "#/definitions/User" },
+        "additional_data": {
+          "type": "object",
+          "description": "Dynamic fields depending on product type (tools, produce, supple, grand)."
         }
       }
     }
