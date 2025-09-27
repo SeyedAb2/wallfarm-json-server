@@ -9,10 +9,8 @@ const app = express();
 const router = jsonServer.router(path.join(__dirname, "db.json"));
 const middlewares = jsonServer.defaults();
 
-// فعال کردن CORS
 app.use(cors());
 
-// 🔥 سرو استاتیک برای swagger-ui (خیلی مهم تو Vercel)
 app.use(
   "/swagger-ui",
   express.static(path.dirname(require.resolve("swagger-ui-dist/swagger-ui.css")))
@@ -40,5 +38,9 @@ app.get("/", (req, res) => {
   res.send("🚀 API running! → /api , /api-docs");
 });
 
-// ❌ دیگه app.listen نذار، چون Vercel خودش هندل می‌کنه
+const port = process.env.PORT || 9000;
+app.listen(port, () => {
+  console.log(`🚀 JSON Server running on port ${port}`);
+});
+
 module.exports = app;
